@@ -96,14 +96,14 @@ export default function App() {
         Generate Sandwich
       </button>
 
-      {sandwiches.map((s, i) => (
+      {sandwiches.map((sandwich, i) => (
         <div key={i} style={styles.sandwich}>
           <p style={{ whiteSpace: "pre-line", margin: 0 }}>
-            Sandwich {s.number} {s.spicy}:
-            {"\n"}- Bread: {s.bread}
-            {"\n"}- Main: {s.main}
-            {"\n"}- Sauces: {s.sauce}
-            {"\n"}- Vegetables: {s.vegetables}
+            Sandwich {sandwich.number} {sandwich.spicy}:
+            {"\n"}- Bread: {sandwich.bread}
+            {"\n"}- Main: {sandwich.main}
+            {"\n"}- Sauces: {sandwich.sauce}
+            {"\n"}- Vegetables: {sandwich.vegetables}
           </p>
           <button
             style={styles.removeBtn}
