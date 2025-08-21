@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface Sandwich {
   number: number;
@@ -8,6 +8,8 @@ interface Sandwich {
   spicy: string;
   vegetables: string;
 }
+
+// let count = 1;
 
 export default function App() {
   const breads = ["Brown Bread", "Milk Bread", "White Bread", "Sugar-free Bread"];
@@ -23,7 +25,8 @@ export default function App() {
   ];
 
   const [sandwiches, setSandwiches] = useState<Sandwich[]>([]);
-  const [count, setCount] = useState<number>(1);
+  const count = useRef(1)
+
   const styles = {
     sandwich: {
       marginTop: "10px",
@@ -78,13 +81,17 @@ export default function App() {
         break;
     }
 
-    return { number: count, bread, main, sauce, spicy, vegetables };
+    const obj = { number: count.current, bread, main, sauce, spicy, vegetables }
+    count.current++;
+
+    return obj;
   }
 
-   function addSandwich() {
+  function addSandwich() {
     const newSandwich = getSandwich();
-    setSandwiches([...sandwiches, newSandwich]);
-    setCount(count + 1);
+    console.log(count.current)
+    // setSandwiches(prevSandwiches => [...prevSandwiches, newSandwich]);
+    // setCount(prevCount => prevCount + 1);
   }
 
   function removeSandwich(index: number) {
@@ -93,8 +100,9 @@ export default function App() {
   return (
     <div>
       <button style={styles.generateBtn} onClick={addSandwich}>
-        Generate Sandwich
+        Generate Sandwich {count.current}
       </button>
+
 
       {sandwiches.map((sandwich, i) => (
         <div key={i} style={styles.sandwich}>
