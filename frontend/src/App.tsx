@@ -2,6 +2,8 @@ import { useState } from "react";
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Header from "./Header";
+import { Container, Typography } from "@mui/material";
 
 
 interface Sandwich {
@@ -78,26 +80,28 @@ export default function App() {
     setSandwiches(sandwiches.filter((_, i) => i !== index));
   }
   return (
-    <div>
-    <Button variant="contained" color="success" onClick={addSandwich}>
+
+    <Container>
+      <Header />
+      <Button variant="contained" color="success" onClick={addSandwich}>
         Generate Sandwich
-     </Button>
+      </Button>
 
       {sandwiches.map((sandwich, i) => (
-        <div key={i} style={styles.sandwich}>
-          <p style={{ whiteSpace: "pre-line", margin: 0 }}>
+        <Container key={i} style={styles.sandwich}>
+          <Typography sx={{  whiteSpace: 'pre-line',   width: "300px",}} >
             Sandwich {sandwich.number} {sandwich.spicy}:
             {"\n"}- Bread: {sandwich.bread}
             {"\n"}- Main: {sandwich.main}
             {"\n"}- Sauces: {sandwich.sauce}
             {"\n"}- Vegetables: {sandwich.vegetables}
-          </p>
-          <Button variant="outlined" color="error" 
-          onClick={() => removeSandwich(i)}>
+          </Typography>
+          <Button variant="outlined" color="error"
+            onClick={() => removeSandwich(i)}>
             Remove Sandwich
           </Button>
-        </div>
+        </Container>
       ))}
-    </div>
+    </Container>
   );
 }
