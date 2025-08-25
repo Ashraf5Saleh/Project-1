@@ -1,4 +1,8 @@
 import { useState } from "react";
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
 
 interface Sandwich {
   number: number;
@@ -7,20 +11,21 @@ interface Sandwich {
   sauce: string;
   spicy: string;
   vegetables: string;
-}
+};
+const breads = ["Brown Bread", "Milk Bread", "White Bread", "Sugar-free Bread"];
+const mains = ["Chicken", "Beef", "Mutton"];
+const sauces = [
+  "Hot Sauce",
+  "Siracha",
+  "Chili Garlic Sauce",
+  "Mayo",
+  "Ketchup",
+  "Mustard",
+  "Ranch"
+];
 
 export default function App() {
-  const breads = ["Brown Bread", "Milk Bread", "White Bread", "Sugar-free Bread"];
-  const mains = ["Chicken", "Beef", "Mutton"];
-  const sauces = [
-    "Hot Sauce",
-    "Siracha",
-    "Chili Garlic Sauce",
-    "Mayo",
-    "Ketchup",
-    "Mustard",
-    "Ranch"
-  ];
+
 
   const [sandwiches, setSandwiches] = useState<Sandwich[]>([]);
   const [count, setCount] = useState<number>(1);
@@ -31,24 +36,6 @@ export default function App() {
       border: "1px solid #ccc",
       borderRadius: "8px",
       maxWidth: "400px",
-    },
-    removeBtn: {
-      marginTop: "5px",
-      color: "white",
-      backgroundColor: "red",
-      border: "none",
-      padding: "5px 10px",
-      cursor: "pointer",
-      borderRadius: "4px",
-    },
-    generateBtn: {
-      padding: "8px 16px",
-      fontSize: "14px",
-      cursor: "pointer",
-      backgroundColor: "#4CAF50",
-      color: "white",
-      border: "none",
-      borderRadius: "4px",
     }
   };
 
@@ -81,10 +68,10 @@ export default function App() {
     return { number: count, bread, main, sauce, spicy, vegetables };
   }
 
-   function addSandwich() {
+  function addSandwich() {
     const newSandwich = getSandwich();
-    setSandwiches([...sandwiches, newSandwich]);
-    setCount(count + 1);
+    setSandwiches(prevSandwiches => [...prevSandwiches, newSandwich]);
+    setCount(prevcount => prevcount + 1);
   }
 
   function removeSandwich(index: number) {
@@ -92,9 +79,9 @@ export default function App() {
   }
   return (
     <div>
-      <button style={styles.generateBtn} onClick={addSandwich}>
+    <Button variant="contained" color="success" onClick={addSandwich}>
         Generate Sandwich
-      </button>
+     </Button>
 
       {sandwiches.map((sandwich, i) => (
         <div key={i} style={styles.sandwich}>
@@ -105,12 +92,10 @@ export default function App() {
             {"\n"}- Sauces: {sandwich.sauce}
             {"\n"}- Vegetables: {sandwich.vegetables}
           </p>
-          <button
-            style={styles.removeBtn}
-            onClick={() => removeSandwich(i)}
-          >
+          <Button variant="outlined" color="error" 
+          onClick={() => removeSandwich(i)}>
             Remove Sandwich
-          </button>
+          </Button>
         </div>
       ))}
     </div>
