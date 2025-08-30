@@ -1,11 +1,9 @@
-import { Container, Typography, CardContent, Button, Card } from "@mui/material";
-import Header from "./Header";
+import { Container, Typography } from "@mui/material";
 
 function About() {
 
     return (
         <Container>
-            <Header />
             <Typography>Hi this is my about page </Typography>
         </Container>
     )
