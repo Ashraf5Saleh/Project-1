@@ -1,13 +1,19 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, } from "@mui/material";
+import { Link } from "react-router-dom";
+
+
 
 function Header() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          My Vite + React + TS Project
+
+        <Typography variant="h3" sx={{ flexGrow: 1 }}>
+          Sandwich Generator
         </Typography>
-        <Button color="inherit">Login</Button>
+        <Button color="inherit" component={Link} to="/about">
+          About
+        </Button>
       </Toolbar>
     </AppBar>
   );

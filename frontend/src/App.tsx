@@ -1,11 +1,9 @@
 import { useState } from "react";
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Header from "./Header";
-import { Container, Typography } from "@mui/material";
-
-
+import { Typography, CardContent, Button, Card, Box } from "@mui/material";
+import { Routes, Route } from "react-router";
+import About from "./About";
+import Footer from "./assets/Footer";
 interface Sandwich {
   number: number;
   bread: string;
@@ -26,20 +24,13 @@ const sauces = [
   "Ranch"
 ];
 
+
 export default function App() {
 
 
   const [sandwiches, setSandwiches] = useState<Sandwich[]>([]);
   const [count, setCount] = useState<number>(1);
-  const styles = {
-    sandwich: {
-      marginTop: "10px",
-      padding: "10px",
-      border: "1px solid #ccc",
-      borderRadius: "8px",
-      maxWidth: "400px",
-    }
-  };
+
 
   function getSandwich() {
     let bread = breads[Math.floor(Math.random() * breads.length)];
@@ -81,27 +72,48 @@ export default function App() {
   }
   return (
 
-    <Container>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
       <Header />
-      <Button variant="contained" color="success" onClick={addSandwich}>
-        Generate Sandwich
-      </Button>
+      <Box sx={{ flex: 1, p: 2 }}>
+        <Routes>
 
-      {sandwiches.map((sandwich, i) => (
-        <Container key={i} style={styles.sandwich}>
-          <Typography sx={{  whiteSpace: 'pre-line',   width: "300px",}} >
-            Sandwich {sandwich.number} {sandwich.spicy}:
-            {"\n"}- Bread: {sandwich.bread}
-            {"\n"}- Main: {sandwich.main}
-            {"\n"}- Sauces: {sandwich.sauce}
-            {"\n"}- Vegetables: {sandwich.vegetables}
-          </Typography>
-          <Button variant="outlined" color="error"
-            onClick={() => removeSandwich(i)}>
-            Remove Sandwich
-          </Button>
-        </Container>
-      ))}
-    </Container>
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Button variant="contained" color="success" sx={{ mt: 1 }} onClick={addSandwich}>
+          Generate Sandwich
+        </Button>
+
+        {sandwiches.map((sandwich, i) => (
+
+          <Card key={i} variant="outlined"
+            sx={{
+              mt: 1.25,
+              maxWidth: 400,
+              borderRadius: "8px",
+              p: 2,
+            }}>
+            <CardContent>
+              <Typography>Sandwich {sandwich.number} {sandwich.spicy}:</Typography>
+              <Typography> - Bread: {sandwich.bread}</Typography>
+              <Typography>- Main: {sandwich.main}</Typography>
+              <Typography> - Sauces: {sandwich.sauce}</Typography>
+              <Typography> - Vegetables: {sandwich.vegetables}</Typography>
+            </CardContent>
+            <Button variant="outlined" color="error"
+              onClick={() => removeSandwich(i)}>
+              Remove Sandwich
+            </Button>
+          </Card>
+        ))}
+      </Box>
+      <Footer />
+    </Box>
+
   );
 }
